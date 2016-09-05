@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--URL Input View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="URLInputViewController" customModule="K360Player" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzY-Oh-qnu">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-Pc-Skk">
+                                        <rect key="frame" x="8" y="30" width="536" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAU-SQ-LOj">
+                                        <rect key="frame" x="552" y="40" width="34" height="30"/>
+                                        <state key="normal" title="Start"/>
+                                        <connections>
+                                            <action selector="startActionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nbu-eJ-BWw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="5Yp-Pc-Skk" firstAttribute="top" secondItem="gzY-Oh-qnu" secondAttribute="top" constant="30" id="1Bd-v6-35w"/>
+                                    <constraint firstAttribute="trailing" secondItem="zAU-SQ-LOj" secondAttribute="trailing" constant="14" id="J2Y-Zp-psg"/>
+                                    <constraint firstAttribute="height" constant="88" id="R17-y9-jKN"/>
+                                    <constraint firstItem="5Yp-Pc-Skk" firstAttribute="leading" secondItem="gzY-Oh-qnu" secondAttribute="leading" constant="8" id="R7w-xQ-bxB"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Yp-Pc-Skk" secondAttribute="bottom" constant="8" id="To9-je-Ocg"/>
+                                    <constraint firstAttribute="bottom" secondItem="zAU-SQ-LOj" secondAttribute="bottom" constant="18" id="a3U-Dx-plr"/>
+                                    <constraint firstItem="zAU-SQ-LOj" firstAttribute="leading" secondItem="5Yp-Pc-Skk" secondAttribute="trailing" constant="8" id="e7x-Rg-qH1"/>
+                                    <constraint firstItem="zAU-SQ-LOj" firstAttribute="top" secondItem="gzY-Oh-qnu" secondAttribute="top" constant="40" id="puW-Na-7iY"/>
+                                    <constraint firstItem="zAU-SQ-LOj" firstAttribute="leading" secondItem="5Yp-Pc-Skk" secondAttribute="trailing" constant="8" id="zcu-qH-oYG"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zKk-as-FhZ">
+                                <rect key="frame" x="0.0" y="88" width="600" height="512"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="WyS-s9-nej">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WyS-s9-nej" id="bwx-i6-8Gj">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zKk-as-FhZ" secondAttribute="bottom" id="0ZQ-zq-DhY"/>
+                            <constraint firstAttribute="trailing" secondItem="gzY-Oh-qnu" secondAttribute="trailing" id="G8K-yG-b1R"/>
+                            <constraint firstItem="zKk-as-FhZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pax-b1-MsB"/>
+                            <constraint firstItem="zKk-as-FhZ" firstAttribute="top" secondItem="gzY-Oh-qnu" secondAttribute="bottom" id="WCI-OC-GOJ"/>
+                            <constraint firstAttribute="trailing" secondItem="zKk-as-FhZ" secondAttribute="trailing" id="XC1-Fr-yfJ"/>
+                            <constraint firstItem="gzY-Oh-qnu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hXZ-9o-StY"/>
+                            <constraint firstItem="gzY-Oh-qnu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="prS-zt-6YZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="zKk-as-FhZ" id="cW8-sr-GEZ"/>
+                        <outlet property="urlTextView" destination="5Yp-Pc-Skk" id="TB1-Ak-IIq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="279" y="429"/>
+        </scene>
+    </scenes>
+</document>
