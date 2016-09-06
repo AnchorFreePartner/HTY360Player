@@ -39,6 +39,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 @property (strong, nonatomic) id timeObserver;
 @property (assign, nonatomic) CGFloat mRestoreAfterScrubbingRate;
 @property (assign, nonatomic) BOOL seekToZeroBeforePlay;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) NSTimer *bufferTimer;
 
@@ -246,6 +247,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 - (void)updatePlayButton {
     [self.playButton setImage:[UIImage imageNamed:[self isPlaying] ? @"playback_pause" : @"playback_play"]
                      forState:UIControlStateNormal];
+    self.playButton.selected = ![self isPlaying];
 }
 
 - (void)play {
@@ -258,6 +260,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         [self.player seekToTime:kCMTimeZero];
     }
     
+    [self.activityIndicator stopAnimating];
     [self updatePlayButton];
     [self.player play];
     
@@ -430,6 +433,13 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         [self.bufferTimer invalidate];
         self.bufferTimer = nil;
     }
+    
+    if ( self.activityIndicator.isAnimating ) {
+        double time = CMTimeGetSeconds([self.player currentTime]);
+        if ( availableDuration - time > 2 ) {
+            [self play];
+        }
+    }
 }
 
 - (CMTime)playerItemDuration {
@@ -585,14 +595,17 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         }
     } else if (context == AVPlayerDemoPlaybackViewControllerRateObservationContext) {
         [self updatePlayButton];
-        // NSLog(@"AVPlayerDemoPlaybackViewControllerRateObservationContext");
-    } else if (context == AVPlayerDemoPlaybackViewControllerCurrentItemObservationContext) {
-        /* AVPlayer "currentItem" property observer.
-         Called when the AVPlayer replaceCurrentItemWithPlayerItem:
-         replacement will/did occur. */
         
-        //NSLog(@"AVPlayerDemoPlaybackViewControllerCurrentItemObservationContext");
+        if ( ![self isPlaying] && self.playButton.selected ) {
+            [self.activityIndicator startAnimating];
+        }
+        
+        NSLog(@"AVPlayerDemoPlaybackViewControllerRateObservationContext");
+    } else if (context == AVPlayerDemoPlaybackViewControllerCurrentItemObservationContext) {
+        NSLog(@"AVPlayerDemoPlaybackViewControllerCurrentItemObservationContext");
     } else {
+        NSLog(@"observeValueForKeyPath");
+        
         [super observeValueForKeyPath:path ofObject:object change:change context:context];
     }
 }

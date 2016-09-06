@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTY360PlayerVC">
             <connections>
+                <outlet property="activityIndicator" destination="pgu-Ii-AEm" id="GAA-fR-pXI"/>
                 <outlet property="backButton" destination="XuQ-LV-4yQ" id="SFn-6d-4o2"/>
                 <outlet property="gyroButton" destination="DR2-sX-Ecz" id="2WI-6m-yy8"/>
                 <outlet property="playButton" destination="3Pr-21-8dz" id="Nom-Nr-PNu"/>
@@ -87,11 +88,16 @@
                         <constraint firstItem="XuQ-LV-4yQ" firstAttribute="top" secondItem="utK-WR-lKf" secondAttribute="top" constant="8" id="zrL-Fb-azK"/>
                     </constraints>
                 </view>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pgu-Ii-AEm">
+                    <rect key="frame" x="281" y="282" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="pgu-Ii-AEm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="EhT-ak-sKs"/>
                 <constraint firstAttribute="bottom" secondItem="utK-WR-lKf" secondAttribute="bottom" constant="30" id="M8X-Dv-5Mh"/>
                 <constraint firstItem="utK-WR-lKf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="570" id="Pg6-b2-Vlb"/>
+                <constraint firstItem="pgu-Ii-AEm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="TRJ-ol-LjM"/>
                 <constraint firstItem="utK-WR-lKf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="agq-Yy-Nsi"/>
                 <constraint firstAttribute="trailing" secondItem="utK-WR-lKf" secondAttribute="trailing" constant="30" id="jNk-tJ-Xc4"/>
                 <constraint firstItem="utK-WR-lKf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mr7-p9-MlX"/>
