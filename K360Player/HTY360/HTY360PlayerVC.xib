@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="activityIndicator" destination="pgu-Ii-AEm" id="GAA-fR-pXI"/>
                 <outlet property="backButton" destination="XuQ-LV-4yQ" id="SFn-6d-4o2"/>
+                <outlet property="bandwithLabel" destination="ftJ-o7-1Ag" id="FUh-sV-nxn"/>
+                <outlet property="bandwithLeading" destination="EG7-hC-q99" id="c5a-OL-W3l"/>
                 <outlet property="gyroButton" destination="DR2-sX-Ecz" id="2WI-6m-yy8"/>
                 <outlet property="playButton" destination="3Pr-21-8dz" id="Nom-Nr-PNu"/>
                 <outlet property="playerControlBackgroundView" destination="utK-WR-lKf" id="mZV-sx-MoY"/>
@@ -73,12 +75,24 @@
                                 <action selector="gyroButtonTouched:" destination="-1" eventType="touchUpInside" id="vH0-KG-9yS"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftJ-o7-1Ag">
+                            <rect key="frame" x="291" y="58" width="90" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="90" id="3Z7-79-C0w"/>
+                                <constraint firstAttribute="height" constant="20" id="sxb-bW-g4l"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="3Pr-21-8dz" firstAttribute="centerX" secondItem="utK-WR-lKf" secondAttribute="centerX" id="831-O0-f35"/>
                         <constraint firstItem="XuQ-LV-4yQ" firstAttribute="leading" secondItem="utK-WR-lKf" secondAttribute="leading" constant="8" id="8bF-6B-2vv"/>
                         <constraint firstAttribute="bottom" secondItem="UtA-4n-mGO" secondAttribute="bottom" constant="8" id="Bvi-0g-Mhb"/>
+                        <constraint firstItem="ftJ-o7-1Ag" firstAttribute="leading" secondItem="utK-WR-lKf" secondAttribute="leading" constant="291" id="EG7-hC-q99"/>
+                        <constraint firstAttribute="bottom" secondItem="ftJ-o7-1Ag" secondAttribute="bottom" constant="22" id="NSx-Xg-81w"/>
                         <constraint firstAttribute="height" constant="100" id="UAs-oO-mVR"/>
                         <constraint firstItem="UtA-4n-mGO" firstAttribute="leading" secondItem="utK-WR-lKf" secondAttribute="leading" constant="8" id="ViZ-mR-inX"/>
                         <constraint firstItem="3Pr-21-8dz" firstAttribute="top" secondItem="utK-WR-lKf" secondAttribute="top" constant="8" id="dzN-aN-3V6"/>

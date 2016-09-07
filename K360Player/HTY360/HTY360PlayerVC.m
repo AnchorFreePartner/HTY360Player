@@ -40,6 +40,8 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 @property (assign, nonatomic) CGFloat mRestoreAfterScrubbingRate;
 @property (assign, nonatomic) BOOL seekToZeroBeforePlay;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *bandwithLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bandwithLeading;
 
 @property (strong, nonatomic) NSTimer *bufferTimer;
 
@@ -425,7 +427,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         float minValue = [self.progressSlider minimumValue];
         float maxValue = [self.progressSlider maximumValue];
         
-        NSLog(@"availableDuration %f, %f", availableDuration, duration);
+//        NSLog(@"availableDuration %f, %f", availableDuration, duration);
         
         [self.progressSlider setBufferValue:(maxValue - minValue) * availableDuration / duration + minValue];
     }
@@ -480,6 +482,43 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         
         [self.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
     }
+    
+    CGRect trackRect = [self.progressSlider trackRectForBounds:self.progressSlider.bounds];
+    CGRect thumbRect = [self.progressSlider thumbRectForBounds:self.progressSlider.bounds
+                                             trackRect:trackRect
+                                                 value:self.progressSlider.value];
+    
+    self.bandwithLeading.constant = thumbRect.origin.x + self.progressSlider.frame.origin.x + CGRectGetWidth(thumbRect);
+    
+    NSArray *logEvents = self.playerItem.accessLog.events;
+    AVPlayerItemAccessLogEvent *event = (AVPlayerItemAccessLogEvent *)[logEvents lastObject];
+    double bitRate = event.observedBitrate;
+    
+    NSLog(@"bitRate %@", [self formattedSpeed:bitRate]);
+    
+    self.bandwithLabel.text = [self formattedSpeed:bitRate];
+}
+
+- (NSString*) formattedSpeed:(double)rate {    
+    double gbs = (double)rate/1024/1024/1024;
+    double mbs = (double)rate/1024/1024;
+    double kbs = (double)rate/1024;
+    
+    NSString *retVal = @"";
+    
+    if (gbs > 1) {
+        retVal = [NSString stringWithFormat:@"%.2f Gbs", gbs];
+    }
+    else if (mbs > 1) {
+        retVal = [NSString stringWithFormat:@"%.2f Mbs", mbs];
+    }
+    else if (kbs > 1) {
+        retVal = [NSString stringWithFormat:@"%.2f Kbs", kbs];
+    }
+    else {
+        retVal = [NSString stringWithFormat:@"%.2f bs", rate];
+    }
+    return retVal;
 }
 
 /* The user is dragging the movie controller thumb to scrub through the movie. */
