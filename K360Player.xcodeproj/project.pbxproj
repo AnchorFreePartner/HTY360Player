@@ -135,6 +135,7 @@
 				TargetAttributes = {
 					BEB2E35E1D7D591700078384 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W9WCCPKMVT;
 					};
 				};
 			};
@@ -297,9 +298,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: AnchorFree GmBH (W9WCCPKMVT)";
 				INFOPLIST_FILE = K360Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = KS.K360Player;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anchorfree.360player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "K360Player/K360-BridgingHeader.h";
 			};
@@ -309,9 +311,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = K360Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = KS.K360Player;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anchorfree.360player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "K360Player/K360-BridgingHeader.h";
 			};
