@@ -247,7 +247,6 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 - (void)updatePlayButton {
     [self.playButton setImage:[UIImage imageNamed:[self isPlaying] ? @"playback_pause" : @"playback_play"]
                      forState:UIControlStateNormal];
-    self.playButton.selected = ![self isPlaying];
 }
 
 - (void)play {
@@ -260,6 +259,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         [self.player seekToTime:kCMTimeZero];
     }
     
+    self.playButton.selected = NO;
     [self.activityIndicator stopAnimating];
     [self updatePlayButton];
     [self.player play];
@@ -271,6 +271,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     if (![self isPlaying])
         return;
     
+    self.playButton.selected = YES;
     [self updatePlayButton];
     [self.player pause];
     
@@ -593,10 +594,12 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                 break;
             }
         }
-    } else if (context == AVPlayerDemoPlaybackViewControllerRateObservationContext) {
+    } 
+    else if (context == AVPlayerDemoPlaybackViewControllerRateObservationContext) {
+
         [self updatePlayButton];
         
-        if ( ![self isPlaying] && self.playButton.selected ) {
+        if ( ![self isPlaying] && !self.playButton.selected ) {
             [self.activityIndicator startAnimating];
         }
         
