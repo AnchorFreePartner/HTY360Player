@@ -42,6 +42,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *bandwithLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bandwithLeading;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @property (strong, nonatomic) NSTimer *bufferTimer;
 
@@ -396,7 +397,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     
 }
 
-- (void) initBufferTimer {
+- (void)initBufferTimer {
     [self.bufferTimer invalidate];
     
     self.bufferTimer = [NSTimer scheduledTimerWithTimeInterval:0.2
@@ -414,7 +415,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     return kCMTimeZero;
 }
 
-- (void) updateProgressUI {
+- (void)updateProgressUI {
     CMTime playerDuration = [self playerItemDuration];
     if (CMTIME_IS_INVALID(playerDuration)) {
         return;
@@ -481,12 +482,20 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         double time = CMTimeGetSeconds([self.player currentTime]);
         
         [self.progressSlider setValue:(maxValue - minValue) * time / duration + minValue];
+        
+        [self updateTimeIndicatorWithTime:time andDuration:duration];
     }
     
+    if ( self.showBandwith ) {
+        [self updateDownloadSpeed];
+    }
+}
+
+- (void) updateDownloadSpeed {
     CGRect trackRect = [self.progressSlider trackRectForBounds:self.progressSlider.bounds];
     CGRect thumbRect = [self.progressSlider thumbRectForBounds:self.progressSlider.bounds
-                                             trackRect:trackRect
-                                                 value:self.progressSlider.value];
+                                                     trackRect:trackRect
+                                                         value:self.progressSlider.value];
     
     self.bandwithLeading.constant = thumbRect.origin.x + self.progressSlider.frame.origin.x + CGRectGetWidth(thumbRect);
     
@@ -494,9 +503,17 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     AVPlayerItemAccessLogEvent *event = (AVPlayerItemAccessLogEvent *)[logEvents lastObject];
     double bitRate = event.observedBitrate;
     
-    NSLog(@"bitRate %@", [self formattedSpeed:bitRate]);
-    
     self.bandwithLabel.text = [self formattedSpeed:bitRate];
+}
+
+- (void) updateTimeIndicatorWithTime:(double)time andDuration:(double)duration {
+    NSDateComponentsFormatter * formatter = [NSDateComponentsFormatter new];
+    formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorNone;
+    formatter.allowedUnits = NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
+    formatter.unitsStyle = NSDateComponentsFormatterUnitsStylePositional;
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"%@/%@", [formatter stringFromTimeInterval:time], 
+                           [formatter stringFromTimeInterval:duration]];
 }
 
 - (NSString*) formattedSpeed:(double)rate {    

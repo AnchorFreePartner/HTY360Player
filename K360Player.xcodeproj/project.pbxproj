@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE5080721D825A9D00178CC3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5080711D825A9D00178CC3 /* SettingsViewController.swift */; };
+		BE5080741D825ACB00178CC3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5080731D825ACB00178CC3 /* Settings.swift */; };
 		BEB2E3631D7D591700078384 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB2E3621D7D591700078384 /* AppDelegate.swift */; };
 		BEB2E3681D7D591700078384 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEB2E3661D7D591700078384 /* Main.storyboard */; };
 		BEB2E36A1D7D591700078384 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEB2E3691D7D591700078384 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE5080711D825A9D00178CC3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BE5080731D825ACB00178CC3 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BEB2E35F1D7D591700078384 /* K360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = K360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEB2E3621D7D591700078384 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEB2E3671D7D591700078384 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 				BEB2E3621D7D591700078384 /* AppDelegate.swift */,
 				BEB2E3661D7D591700078384 /* Main.storyboard */,
 				BEB2E3741D7D5B8E00078384 /* URLInputViewController.swift */,
+				BE5080711D825A9D00178CC3 /* SettingsViewController.swift */,
+				BE5080731D825ACB00178CC3 /* Settings.swift */,
 				BEB2E3691D7D591700078384 /* Assets.xcassets */,
 				BEB2E36B1D7D591700078384 /* LaunchScreen.storyboard */,
 				BEB2E3761D7D687A00078384 /* HTY360 */,
@@ -180,6 +186,8 @@
 			files = (
 				BEB2E3891D7D6EA700078384 /* HTYSlider.m in Sources */,
 				BEB2E3831D7D687A00078384 /* HTYGLKVC.m in Sources */,
+				BE5080741D825ACB00178CC3 /* Settings.swift in Sources */,
+				BE5080721D825A9D00178CC3 /* SettingsViewController.swift in Sources */,
 				BEB2E3631D7D591700078384 /* AppDelegate.swift in Sources */,
 				BEB2E3751D7D5B8E00078384 /* URLInputViewController.swift in Sources */,
 				BEB2E3801D7D687A00078384 /* GLProgram.m in Sources */,
