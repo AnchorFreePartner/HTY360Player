@@ -117,7 +117,6 @@ GLint uniforms[NUM_UNIFORMS];
     return overture;
 }
 
-
 - (void)refreshTexture {
     CVReturn err;
     CVPixelBufferRef pixelBuffer = [self.videoPlayerController retrievePixelBufferToDraw];
@@ -212,7 +211,7 @@ GLint uniforms[NUM_UNIFORMS];
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)addGesture {
