@@ -132,8 +132,17 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 #pragma mark - video communication
 
 - (CVPixelBufferRef)retrievePixelBufferToDraw {
-    CVPixelBufferRef pixelBuffer = [self.videoOutput copyPixelBufferForItemTime:[self.playerItem currentTime] itemTimeForDisplay:nil];
-    return pixelBuffer;
+    if (self.videoOutput == nil) {
+        return nil;
+    }
+    
+    CMTime currentTime = [self.playerItem currentTime];
+    if([self.videoOutput hasNewPixelBufferForItemTime:currentTime]){
+        return [self.videoOutput copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
+    } 
+    else {
+        return nil;
+    }
 }
 
 #pragma mark - video setting
@@ -158,10 +167,9 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         //NSLog(@"file does not exist");
     }
     
-    NSArray *requestedKeys = [NSArray arrayWithObjects:kTracksKey, kPlayableKey, nil];
-    
+    NSArray *requestedKeys = [NSArray arrayWithObjects:kTracksKey, kPlayableKey, nil];    
     [asset loadValuesAsynchronouslyForKeys:requestedKeys completionHandler:^{
-        
+        NSLog(@"loadValuesAsynchronouslyForKeys", nil);
         dispatch_async( dispatch_get_main_queue(),
                        ^{
                            /* Make sure that the value of each key has loaded successfully. */
@@ -381,6 +389,8 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     if (CMTIME_IS_INVALID(playerDuration)) {
         return;
     }
+    
+    NSLog(@"initScrubberTimer", nil);
     double duration = CMTimeGetSeconds(playerDuration);
     if (isfinite(duration)) {
         CGFloat width = CGRectGetWidth([self.progressSlider bounds]);
@@ -503,7 +513,9 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     AVPlayerItemAccessLogEvent *event = (AVPlayerItemAccessLogEvent *)[logEvents lastObject];
     double bitRate = event.observedBitrate;
     
-    self.bandwithLabel.text = [self formattedSpeed:bitRate];
+    if ( bitRate > 0 ) {
+        self.bandwithLabel.text = [self formattedSpeed:bitRate];
+    }
 }
 
 - (void) updateTimeIndicatorWithTime:(double)time andDuration:(double)duration {
@@ -516,7 +528,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                            [formatter stringFromTimeInterval:duration]];
 }
 
-- (NSString*) formattedSpeed:(double)rate {    
+- (NSString*)formattedSpeed:(double)rate {    
     double gbs = (double)rate/1024/1024/1024;
     double mbs = (double)rate/1024/1024;
     double kbs = (double)rate/1024;
@@ -623,6 +635,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                 /* Indicates that the status of the player is not yet known because
                  it has not tried to load new media resources for playback */
             case AVPlayerStatusUnknown: {
+                NSLog(@"AVPlayerStatusUnknown", nil);
                 [self removePlayerTimeObserver];
                 [self syncScrubber];
                 [self disableScrubber];
@@ -633,14 +646,15 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                 /* Once the AVPlayerItem becomes ready to play, i.e.
                  [playerItem status] == AVPlayerItemStatusReadyToPlay,
                  its duration can be fetched from the item. */
+                NSLog(@"AVPlayerStatusReadyToPlay", nil);
                 [self initScrubberTimer];
                 [self initBufferTimer];
                 [self enableScrubber];
                 [self enablePlayerButtons];
                 
                 if (self.autoPlay) {
-                    [self play];
-                }
+//                    [self play];
+                }                
                 break;
             }
             case AVPlayerStatusFailed: {
@@ -733,6 +747,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 
 /* Cancels the previously registered time observer. */
 - (void)removePlayerTimeObserver {
+    NSLog(@"removePlayerTimeObserver");
     if (self.timeObserver) {
         [self.player removeTimeObserver:self.timeObserver];
         self.timeObserver = nil;

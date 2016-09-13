@@ -181,6 +181,9 @@ GLint uniforms[NUM_UNIFORMS];
         
         CFRelease(pixelBuffer);
     }
+    else {
+//        NSLog(@"Error at PIXELBUFFER");
+    }
 }
 
 - (void)dealloc {
@@ -447,7 +450,9 @@ int esGenSphere(int numSlices, float radius, float **vertices,
 #pragma mark - GLKViewDelegate
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    [self refreshTexture];
+    if ([EAGLContext setCurrentContext:self.context]) {
+        [self refreshTexture];
+    }
     
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawElements(GL_TRIANGLES, self.numIndices, GL_UNSIGNED_SHORT, 0);
