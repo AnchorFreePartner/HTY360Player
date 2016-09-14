@@ -51,7 +51,7 @@ final class URLInputViewController: UIViewController {
 
         let url = NSURL(string: urlString)
         let videoController = HTY360PlayerVC(nibName: "HTY360PlayerVC", bundle: nil, url: url)
-        videoController.showBandwith = Settings.isLocalStorageOn
+        videoController.showBandwith = !Settings.isLocalStorageOn
         
         self.presentViewController(videoController, animated: true, completion: nil)
     }

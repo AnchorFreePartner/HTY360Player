@@ -39,6 +39,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 @property (strong, nonatomic) id timeObserver;
 @property (assign, nonatomic) CGFloat mRestoreAfterScrubbingRate;
 @property (assign, nonatomic) BOOL seekToZeroBeforePlay;
+@property (assign, nonatomic) BOOL rateEventAppear;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *bandwithLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bandwithLeading;
@@ -71,6 +72,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     
     self.autoPlay = YES;
     self.loopVideo = YES;
+    self.rateEventAppear = NO;
     
     [self setupVideoPlaybackForURL:_videoURL];
     [self configureGLKView];
@@ -137,12 +139,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     }
     
     CMTime currentTime = [self.playerItem currentTime];
-    if([self.videoOutput hasNewPixelBufferForItemTime:currentTime]){
-        return [self.videoOutput copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
-    } 
-    else {
-        return nil;
-    }
+    return [self.videoOutput copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
 }
 
 #pragma mark - video setting
@@ -186,9 +183,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                            AVKeyValueStatus status = [asset statusOfValueForKey:kTracksKey error:&error];
                            if (status == AVKeyValueStatusLoaded) {
                                self.playerItem = [AVPlayerItem playerItemWithAsset:asset];
-                               [self.playerItem addOutput:self.videoOutput];
                                [self.player replaceCurrentItemWithPlayerItem:self.playerItem];
-                               [self.videoOutput requestNotificationOfMediaDataChangeWithAdvanceInterval:ONE_FRAME_DURATION];
                                
                                /* When the player item has played to its end time we'll toggle
                                 the movie controller Pause button to be the Play button */
@@ -478,7 +473,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     return (kCMTimeInvalid);
 }
 
-- (void)syncScrubber {
+- (void) syncScrubber {
     CMTime playerDuration = [self playerItemDuration];
     if (CMTIME_IS_INVALID(playerDuration)) {
         self.progressSlider.minimumValue = 0.0;
@@ -646,7 +641,11 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
                 /* Once the AVPlayerItem becomes ready to play, i.e.
                  [playerItem status] == AVPlayerItemStatusReadyToPlay,
                  its duration can be fetched from the item. */
-                NSLog(@"AVPlayerStatusReadyToPlay", nil);
+                NSLog(@"AVPlayerStatusReadyToPlay", nil);               
+                
+                [self.playerItem addOutput:self.videoOutput];
+                [self.videoOutput requestNotificationOfMediaDataChangeWithAdvanceInterval:ONE_FRAME_DURATION];
+                
                 [self initScrubberTimer];
                 [self initBufferTimer];
                 [self enableScrubber];
@@ -666,7 +665,7 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
         }
     } 
     else if (context == AVPlayerDemoPlaybackViewControllerRateObservationContext) {
-
+        self.rateEventAppear = YES;
         [self updatePlayButton];
         
         if ( ![self isPlaying] && !self.playButton.selected ) {
