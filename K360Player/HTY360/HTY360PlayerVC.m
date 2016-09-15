@@ -497,13 +497,6 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
 }
 
 - (void) updateDownloadSpeed {
-    CGRect trackRect = [self.progressSlider trackRectForBounds:self.progressSlider.bounds];
-    CGRect thumbRect = [self.progressSlider thumbRectForBounds:self.progressSlider.bounds
-                                                     trackRect:trackRect
-                                                         value:self.progressSlider.value];
-    
-    self.bandwithLeading.constant = thumbRect.origin.x + self.progressSlider.frame.origin.x + CGRectGetWidth(thumbRect);
-    
     NSArray *logEvents = self.playerItem.accessLog.events;
     AVPlayerItemAccessLogEvent *event = (AVPlayerItemAccessLogEvent *)[logEvents lastObject];
     double bitRate = event.observedBitrate;
@@ -511,6 +504,18 @@ static void *AVPlayerItemStatusContext = &AVPlayerItemStatusContext;
     if ( bitRate > 0 ) {
         self.bandwithLabel.text = [self formattedSpeed:bitRate];
     }
+    
+    [self.bandwithLabel sizeToFit];
+    
+    CGRect trackRect = [self.progressSlider trackRectForBounds:self.progressSlider.bounds];
+    CGRect thumbRect = [self.progressSlider thumbRectForBounds:self.progressSlider.bounds
+                                                     trackRect:trackRect
+                                                         value:self.progressSlider.value];
+    
+    CGFloat labelOrigin = CGRectGetMinX(self.progressSlider.frame) + CGRectGetMidX(thumbRect) - CGRectGetWidth(self.bandwithLabel.frame)/2;
+    CGFloat leftX = MAX(CGRectGetMinX(self.progressSlider.frame), labelOrigin);
+    leftX = MIN(CGRectGetMaxX(self.progressSlider.frame) - CGRectGetWidth(self.bandwithLabel.frame), leftX);
+    self.bandwithLeading.constant = leftX;
 }
 
 - (void) updateTimeIndicatorWithTime:(double)time andDuration:(double)duration {

@@ -76,12 +76,9 @@
                                 <action selector="gyroButtonTouched:" destination="-1" eventType="touchUpInside" id="vH0-KG-9yS"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftJ-o7-1Ag">
-                            <rect key="frame" x="291" y="54" width="90" height="20"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="90" id="3Z7-79-C0w"/>
-                                <constraint firstAttribute="height" constant="20" id="sxb-bW-g4l"/>
-                            </constraints>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftJ-o7-1Ag">
+                            <rect key="frame" x="291" y="50" width="90" height="20"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -103,7 +100,7 @@
                         <constraint firstItem="XuQ-LV-4yQ" firstAttribute="leading" secondItem="utK-WR-lKf" secondAttribute="leading" constant="8" id="8bF-6B-2vv"/>
                         <constraint firstAttribute="bottom" secondItem="UtA-4n-mGO" secondAttribute="bottom" constant="12" id="Bvi-0g-Mhb"/>
                         <constraint firstItem="ftJ-o7-1Ag" firstAttribute="leading" secondItem="utK-WR-lKf" secondAttribute="leading" constant="291" id="EG7-hC-q99"/>
-                        <constraint firstAttribute="bottom" secondItem="ftJ-o7-1Ag" secondAttribute="bottom" constant="26" id="NSx-Xg-81w"/>
+                        <constraint firstAttribute="bottom" secondItem="ftJ-o7-1Ag" secondAttribute="bottom" constant="30" id="NSx-Xg-81w"/>
                         <constraint firstAttribute="height" constant="100" id="UAs-oO-mVR"/>
                         <constraint firstAttribute="bottom" secondItem="Ypd-WU-AMV" secondAttribute="bottom" constant="-1" id="Uqf-vP-av5"/>
                         <constraint firstItem="UtA-4n-mGO" firstAttribute="leading" secondItem="utK-WR-lKf" secondAttribute="leading" constant="8" id="ViZ-mR-inX"/>
